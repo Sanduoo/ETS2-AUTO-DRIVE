@@ -35,7 +35,7 @@ int main()
         // 获取ROI
         int cy = h / 2;
         int cx = w / 2;
-        Rect rect(cx - 150, cy, 300, 200);
+        Rect rect(cx - 150, cy, 300, 200);  //这些参数都可以根据自己的情况来改变
         Mat roi = src(rect);
         cvtColor(roi, roi, COLOR_BGR2GRAY);
         Canny(roi, roi, 250, 350);

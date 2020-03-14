@@ -2,9 +2,10 @@
 #include<windows.h>
 
 using namespace std;
-
+//¼üÅÌ²Ù×÷
 class Key_Down_Up {
 public:
+
 	int W() {
 		keybd_event(87, 0, 0, 0);
 		Sleep(200);
