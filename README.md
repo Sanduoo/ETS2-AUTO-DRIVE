@@ -40,7 +40,7 @@ key对应着你要按下的键的ASCII码
 ###思路###  
 简单的处理一下图像，为之后的车道识别做准备  
 模拟键盘输入是为了之后控制车辆前进后退左转右转做准备  
-###例图###
+###例图###  
 ![Image text](https://github.com/Sanduoo/ETS2-AUTO-DRIVE/blob/master/v2.0/2020-03-14v2.0.jpg)
   
 ****
