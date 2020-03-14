@@ -24,4 +24,16 @@ Mat：多维密集数组，可以用来处理矩阵、图像等等常见的多�
 ![Image text](https://github.com/Sanduoo/ETS2-AUTO-DRIVE/blob/master/v1.0/2020-03-14v1.0.jpg)
 ****
   
+v2.0
+
+对画面进行处理  
+增加了控制模块  
   
+原本我们的画面是一个400*250的大小，其中车道画面只占了整个画面的一半  
+所以我打算对整个画面进行ROI处理，仅保留那些我们需要用到的部分  
+模拟键盘输入模块，我这里用的是Windows提供的一个模拟键盘API函数keybd_event()（Python可以用pyautogui
+）来实现  
+keybd_event(key,0,0,0);	//对应按下key  
+keybd_event(key,0,KEYEVENTF_KEYUP,0);	//抬起key  
+key对应着你要按下的键的ASCII码  
+在我们操作键盘时，其实有两个动作，按下和弹起，当你要从键盘输入一个字符时，就是由这两个动作完成的  
