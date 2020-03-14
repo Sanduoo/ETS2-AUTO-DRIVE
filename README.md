@@ -21,6 +21,7 @@ Mat：多维密集数组，可以用来处理矩阵、图像等等常见的多�
 先建两个窗体，将一个窗体中的内容复制到另一个中，然后对后者进行数据转换BitmapToMat，再由OpenCV显示出来  
 ###例图###  
   
+https://github.com/Sanduoo/ETS2-AUTO-DRIVE/blob/master/v1.0/2020-03-14v1.0.jpg  
 
 ****
   
