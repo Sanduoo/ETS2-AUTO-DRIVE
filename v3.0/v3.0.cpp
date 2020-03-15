@@ -2,6 +2,7 @@
 #include<opencv2/opencv.hpp>
 #include<opencv2/highgui/highgui_c.h>
 #include <windows.h>
+#include <cmath>
 #include"key.cpp"
 
 using namespace cv;
@@ -12,13 +13,15 @@ bool HBitmapToMat(HBITMAP& _hBmp, Mat& _mat);
 HBITMAP hBmp;
 HBITMAP hOld;
 
+Point left_line[2];
+Point right_line[2];
 
 int main()
 {
-    Sleep(2000);
+    //Sleep(2000);
     while (true)
     {
-        Mat src;
+        Mat src,gray;
         vector<Vec4i> plines;
 
         //屏幕截图
@@ -29,15 +32,14 @@ int main()
         //调整大小
         //resize(src, dst, cvSize(400, 250), 0, 0);
 
-        int h = src.rows;
-        int w = src.cols;
+        int h1 = src.rows;
+        int w1 = src.cols;
         // 获取ROI
-        int cy = h / 2;
-        int cx = w / 2;
-        Rect rect(cx - 150, cy, 300, 200);  //这些参数都可以根据自己的情况来改变
+        int y1 = h1 / 2;
+        int x1 = w1 / 2;
+        Rect rect(x1 - 150, y1, 300, 200);  //这些参数都可以根据自己的情况来改变
         Mat roi = src(rect);
-        //roi = Mat::zeros(roi.size(), roi.type());
-        cvtColor(roi, roi, COLOR_BGR2GRAY);
+        cvtColor(roi, gray, COLOR_BGR2GRAY);
         /*
         void Canny(	InputArray image, 
 			OutputArray edges,
@@ -47,7 +49,7 @@ int main()
 			bool L2gradient = false);   计算图像梯度幅值的标志，默认值为false
 
         */
-        Canny(roi, roi, 108, 270);
+        Canny(gray, gray, 120, 350);
         /*
         void GaussianBlur( InputArray src, 
                            OutputArray dst, 
@@ -57,7 +59,7 @@ int main()
                            int borderType = BORDER_DEFAULT );推断图像外部像素的某种便捷模式
 
         */
-        GaussianBlur(roi, roi, Size(5, 5), 0, 0);
+        //GaussianBlur(gray, gray, Size(5, 5), 0, 0);
         /*
         cv::HoughLinesP(
                         InputArray src,         输入图像（8位灰度图像）
@@ -70,15 +72,17 @@ int main()
         )
         */
         
-        HoughLinesP(roi, plines, 1.0, CV_PI / 180, 400, 150, 300);//roi, plines, 1.0, CV_PI / 180, 400, 150, 300
+        HoughLinesP(gray, plines, 1.0, CV_PI / 180, 75, 90, 40);//roi, plines, 1.0, CV_PI / 180, 400, 150, 300
         for (size_t i = 0; i < plines.size(); i++)
         {
-            Vec4i points = plines[i];
-            line(roi, Point(points[0], points[1]), Point(points[2], points[3]), Scalar(0, 255, 255), 3, CV_AA);
+            Vec4i l = plines[i];
+            //line(roi, Point(plines[i][0], plines[i][1]), Point(plines[i][2], plines[i][3]), Scalar(0, 0, 255), 1, 8);
+            line(gray, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(255, 0, 0), 10, LINE_AA);
         }
         
-        imshow("roi", roi);
-
+        
+        imshow("gray", gray);
+        
 
         DeleteObject(hBmp);
         waitKey(100);       //帧数200ms=5帧
@@ -124,3 +128,5 @@ bool HBitmapToMat(HBITMAP& _hBmp, Mat& _mat) {
     _mat = v_mat;
     return TRUE;
 }
+
+
